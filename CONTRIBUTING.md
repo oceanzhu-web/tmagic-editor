@@ -1,136 +1,82 @@
-## Issue 提交
+# TMagic
+TMagic 可视化搭建平台。
 
-#### 对于贡献者
+* 💪 Vue 3.0 Composition API
+* 🔥 Written in TypeScript
 
-在提 issue 前请确保满足一下条件：
+# 文档
 
-- 必须是一个 bug 或者功能新增。
-- 已经在 issue 中搜索过，并且没有找到相似的 issue 或者解决方案。
+文档请移步 https://tencent.github.io/tmagic-editor/docs/index.html
 
-##  Pull request
+对于文档，如有疑问欢迎给我们提 issue。
 
-我们除了希望听到您的反馈和建议外，我们也希望您接受代码形式的直接帮助，对我们的 GitHub 发出 pull request 请求。
+# Playground 体验
 
-以下是具体步骤：
+https://tencent.github.io/tmagic-editor/playground/index.html
 
-#### Fork仓库
+## 环境准备
 
-点击 `Fork` 按钮，将需要参与的项目仓库 fork 到自己的 Github 中。
+node.js > 14
 
-#### Clone 已 fork 项目
-
-在自己的 github 中，找到 fork 下来的项目，git clone 到本地。
-
-```bash
-$ git clone git@github.com:<yourname>/tmagic-editor.git
-```
-
-#### 添加 tmagic-editor 仓库
-
-将 fork 源仓库连接到本地仓库：
+先安装lerna
 
 ```bash
-$ git remote add <name> <url>
-# 例如：
-$ git remote add wepy git@github.com:Tencent/tmagic-editor.git
+$ npm install -g lerna
 ```
 
-#### 保持与 tmagic-editor 仓库的同步
-
-更新上游仓库：
+然后安装依赖
 
 ```bash
-$ git pull --rebase <name> <branch>
-# 等同于以下两条命令
-$ git fetch <name> <branch>
-$ git rebase <name>/<branch>
+$ npm run bootstrap
 ```
 
-## Commit
+## 运行项目
 
-对于如何提交 git commit message，我们有非常精确的规则。我们希望所有的 commit message 更具可读性，这样在查看项目历史记录会变得容易，同时我们使用 commit message 生成 Changelog.
+执行命令
 
-本项目使用了 `@commitlint` 作为 commit lint 工具，并使用 [`@commitlint/config-angular`](https://www.npmjs.com/package/@commitlint/config-angular)作为基础规则，请使用下面任意一种方式提交你的 commit.
-
-- 全局安装 `npm install -g commitizen`，然后使用 `cz` 提交
-- 使用 `git commit -a` 提交，请注意 message 符合我们的要求
-
-### 提交格式
-
-每个 commit message 包括 **header**, **body** 和 **footer**.
-
-header 具有特殊的格式，包括 **type**, **scope** 和 **subject**, type 和 subject 是必须的，scope 是可选的。
-
-```vim
-<type>(<scope>): <subject>
-<BLANK LINE>
-<body>
-<BLANK LINE>
-<footer>
+```bash
+$ npm run playground
 ```
 
-提交 message 的任何行不能超过 100 个字符！确保 message 在 GitHub 以及各种 git 工具中更易于阅读。
+最后再浏览器中打开
 
-注脚应该包含 [closing reference to an issue](https://help.github.com/articles/closing-issues-via-commit-messages/) 如果有的话.
+http://localhost:8098/
 
-示例: 
-```vim
-docs(changelog): update change log to beta.5
-```
+即可得到一个魔方编辑器示例项目
 
-```vim
-fix(editor): resize error
+## 项目介绍
+在本项目中，我们核心内容，是包含在 `packages/editor` 中的编辑器，以及 `runtime` 和 `packages/ui` 提供的各个前端框架相关的 runtime 和 ui。
 
-Component doesn't refresh when resize it.
+- `packages` 目录中提供的内容，我们都以 npm 包形式输出，开发者可以通过安装对应的包来使用。
+- `runtime` 是我们提供的编辑器活动页和编辑器模拟器运行的页面项目示例。可以直接使用，也可以参考并自行实现。
+- `playground` 是一个简单的编辑器项目示例。即使用了 `packages` 和 `runtime` 内容的集成项目。开发者可以参考 playground，使用魔方提供的能力实现一个满足业务方需求的编辑器。
 
-fix #123
-```
+### 编辑器
+通过安装和使用 @tmagic/editor，可以快速搭建起一个魔方编辑器。
 
-### Type
+<img src="https://image.video.qpic.cn/oa_88b7d-32_509802977_1635842258505918" alt="魔方demo图">
 
-必须是以下选项之一:
+### 页面渲染
+runtime 是魔方提供的页面渲染环境。通过加载在编辑器中产出的 uiconfig，即可得到魔方编辑器希望拥有的最终产物，一个活动页面。我们提供了 vue2/vue3/react 几个版本的 runtime。
 
-- **feat**: 一个新特性
-- **fix**: 一次 bug 修复
-- **docs**: 只是对文档进行修改
-- **style**: 不影响代码本身含义的代码风格修改
-- **refactor**: 既不属于新特性又不是 bug 修改的代码修改
-- **perf**: 性能优化
-- **test**: 添加或修改测试用例
-- **build**: 修改构建工具
-- **ci**: 修改自动化脚本
-- **revert**: 回滚提交
+通过魔方编辑器和 runtime 渲染，以及通过自定义的复杂组件开发，可以在魔方项目上，搭建出复杂而精美的页面。
 
-### Scope
+<img src="https://image.video.qpic.cn/oa_7cf5e6-5_466783002_1637935497991411" width="375">
 
-Scope 应该是本次修改所影响模块的名称（文件夹名称或其他有意义的单词）。
+### 表单渲染
+魔方的表单配置项，使用了我们开发的基于 element-ui 的 @tmagic/form，magic-form 也可以在其他地方单独使用。支持渲染 JS Schema 提供的表单描述。
 
-```vim
-<prefix:name>
-<prefix:name1,name2>
-```
+<img src="https://image.video.qpic.cn/oa_28dbde-2_1333081854_1637935825410557" >
 
-其他情况可以忽略 scope:
+### 使用
+playground 的示例项目，就是为开发者提供的基础应用示例。开发者可以基于此或者参考自行实现，搭建一个基于魔方的可视化搭建平台。
 
-- 使用 `docs`, `build` 或 `ci` 等全局修改(例如:`docs: add missing type`).
+### 参与交流
+欢迎加入QQ群跟我们交流
 
-### Subject
+ <img src="https://user-images.githubusercontent.com/54619961/157575553-051430c2-8a4b-42de-8823-3420fd673a08.png" width = "200" height = "220" >
 
-Subject 是本次修改的简洁描述:
+### 参与贡献
+如果你有好的意见或建议，欢迎给我们提 Issues 或 Pull Requests，为提升魔方可视化编辑器开发体验贡献力量。<br>详见：[CONTRIBUTING.md](./CONTRIBUTING.md)
 
-- 使用祈使句、现在时，例如：使用 "change" 而不是 "changed"、"changes"
-- 不大写第一个字母
-- 不以小数点(.)结尾
-
-### Body
-
-Body 应包含修改的动机，并对比这与以前的行为，是本次修改的详细描述：
-
-- 使用祈使句、现在时，例如：使用 "change" 而不是 "changed"、"changes"
-
-### Footer
-
-Footer 应包含 **Breaking Changes** 和关闭或关联的 **Issues**
-
-- **Breaking Changes** 应该以 `BREAKING CHANGE:` 开头
-- 关闭或关联的 **Issues** 使用 `fix #123` 或者 `re #123`
+[腾讯开源激励计划](https://opensource.tencent.com/contribution) 鼓励开发者的参与和贡献，期待你的加入。
